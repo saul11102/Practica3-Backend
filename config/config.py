@@ -1,0 +1,26 @@
+from os import environ, path
+from dotenv import load_dotenv
+
+base_dir = path.abspath(path.dirname('__file__'))
+load_dotenv(path.join(base_dir, 'config/.env'))
+
+
+class Config:
+    #configuracion general
+    FLASK_APP = environ.get('FLASK_APP')
+    FLASK_ENV = environ.get('FLASK_ENV')
+    MEDIA_PERFIL = environ.get('CARPETA_PERFIL')
+    
+    #configuracion BD
+    user = environ.get("MYSQL_USER")
+    password = environ.get("MYSQL_PASSWORD")
+    host = environ.get("MYSQL_HOST")
+    db = environ.get("MYSQL_DATABASE")
+
+    SECRET_KEY = environ.get("SECRET_KEY")
+
+    #config SQLALCHEMY
+    SQLALCHEMY_DATABASE_URI = f'mysql://{user}:{password}@{host}/{db}'
+    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_RECORS_QUERIES =True
+    SQLALCHEMY_TRACK_MODIFICATIONS = 'enable'
