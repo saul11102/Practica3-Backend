@@ -12,6 +12,7 @@ class Producto(db.Model):
 
     #foránea
     lote_id = db.Column(db.Integer, db.ForeignKey('lote.id'), nullable = False)
+    sucursal_id = db.Column(db.Integer, db.ForeignKey('sucursal.id'), nullable = False)
 
     #enum
     estado = db.Column(db.Enum(Estado_producto), nullable = False)
@@ -22,17 +23,21 @@ class Producto(db.Model):
 
     #relaciones
     lote = db.relationship('Lote', backref='producto', lazy=True)
+    sucursal = db.relationship('Sucursal', backref='producto', lazy=True)
     #factura = db.relationship('Detalle_factura', backref='producto', lazy=True)
 
     @property
     def serialize(self):
         lote_serialized = self.lote.serialize if self.lote else None
+        sucursal_serialized = self.sucursal.serialize if self.sucursal else None
         return {
+            'sucursal_id' : self.sucursal_id,
             'nombre' : self.nombre,
             'precio' : self.precio,
             'stock' : [1 if self.stock else 0],
             'estado' : self.estado.serialize(),
-            'lote': lote_serialized
+            'lote': lote_serialized,
+            'sucursal': sucursal_serialized
         }
 
 

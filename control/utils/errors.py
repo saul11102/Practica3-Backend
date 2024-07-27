@@ -6,5 +6,6 @@ class Errors:
              "-5": "No hay token",
              "-6": "Token no válido",
              "-7" : "No se ha encontrado la cédula",
-             "-8" : "No se han registrado productos a ese lote"
+             "-8" : "No se han registrado productos a ese lote",
+             "-9" : "No existen esa sucursal",
              }

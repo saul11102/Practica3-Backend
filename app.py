@@ -24,18 +24,21 @@ def create_app():
         from models.lote import Lote
         from models.producto import Producto
         from models.persona import Persona
+        from models.sucursal import Sucursal
 
         from routes.route_persona import api_persona
         from routes.route_lote import api_lote
         from routes.route_producto import api_producto
         from routes.route_cuenta import api_cuenta
         from routes.route_factura import api_factura
+        from routes.route_sucursal import api_sucursal
 
         app.register_blueprint(api_persona)
         app.register_blueprint(api_lote)
         app.register_blueprint(api_producto)
         app.register_blueprint(api_cuenta)
         app.register_blueprint(api_factura)
+        app.register_blueprint(api_sucursal)
 
         #crear tablas de bd
         db.create_all()

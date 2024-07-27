@@ -1,5 +1,6 @@
 from models.producto import Producto
 from models.lote import Lote
+from models.sucursal import Sucursal
 from models.estado_producto import Estado_producto
 import uuid
 from app import db
@@ -18,6 +19,7 @@ class ProductoControl:
         if data:  
             
             producto = Producto()
+            sucursal = Sucursal()
             producto.external_id = uuid.uuid4()
             producto.nombre = data['nombre']
             producto.precio = data ['precio']
@@ -28,8 +30,13 @@ class ProductoControl:
 
             if lote is None:
                 return -3
+            
+            sucursal = Sucursal.query.filter_by(nombre = data['nombre_sucursal']).first()
+            if sucursal is None:
+                return -9
 
             producto.lote_id = lote.id
+            producto.sucursal_id = sucursal.id
 
             # Calcular la diferencia de días
             diferencia_dias = (lote.fecha_vencimiento - datetime.now()).days
